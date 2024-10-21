@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+            select{
+                overflow-y: auto;
+            }
+            option{
+                overflow-y: scroll;
+            }
+        </style>
+        <h1>Fake info generator</h1>
+        <form id="genForm">
+            <select name="info" id="selection" form="genForm">
+                <option value="/name-gender">Name gender</option>
+                <option value="/name-gender-birth">Name gender birth</option>
+                <option value="/cpr-name-gender">CPR name gender</option>
+                <option value="/cpr-name-gender-birth">CPR name gender birth</option>
+                <option value="/address">Address</option>
+                <option value="/person">Person</option>
+                <option value="/persons">Persons</option>
+            </select>
+            <select name="info1" id="quantity" >
+                <option value="2">2</option>
+            </select>
+            <button id="submitBtn" onclick="setAction()">Send</button>
+
+        </form>
+
+        <div id="display">
+            <p id="response">
+                <p id="">First name: <span id="firstname"></span> </p>
+                <p id="">Last name: <span id="lastname"></span></p>
+                <p id="">Phone: <span id="phone"></span></p>
+                <p id="">CPR: <span id="cpr"></span></p>
+                <p id="">Birth: <span id="birth"></span></p>    
+                <p id="">Gender: <span id="gender"></span></p>
+                <p>Address</p>
+                <p>Street: <span id="street"></span></p>
+                <p>Number: <span id="number"></span></p>
+                <p>Door: <span id="door"></span></p>
+                <p>Floor: <span id="floor"></span></p>
+                <p>Postal Code: <span id="postalCode"></span></p>
+                <p>Town: <span id="town"></span></p>
+                <hr>
+            </p>
+        </div>
+        <script>
+            $("#quantity").hide()
+            for(let i = 3; i <= 100; i++)
+        {
+            $("#quantity").append('<option value='+i+'>'+i+'</option>');
+        }
+            
+        document.getElementById('selection').addEventListener('change', () => {
+           if( $("#selection").val() == '/persons')
+           {
+            $("#quantity").show()
+           }
+        })
+
+
+            function setAction(){
+                event.preventDefault();
+                const selectElement = document.getElementById('selection');
+                const selectQuantity = document.getElementById('quantity');
+
+                if(selectElement.value == '/persons')
+            {
+                $.ajax({url: selectElement.value + '/'+selectQuantity.value, success: (result) => {
+
+            for(let i = 0; i < result.length; i++)
+            {
+                var markup = `<p id="response">
+                <p id="">First name: <span id="firstname">`+result[i].firstname+`</span> </p>
+                <p id="">Last name: <span id="lastname">`+result[i].lastname+`</span></p>
+                <p id="">Phone: <span id="phone">`+result[i].phone+`</span></p>
+                <p id="">CPR: <span id="cpr">`+result[i].cpr+`</span></p>
+                <p id="">Birth: <span id="birth"`+result[i].birth+`></span></p>    
+                <p id="">Gender: <span id="gender">`+result[i].gender+`</span></p>
+                <p>Address</p>
+                <p>Street: <span id="street">`+result[i].address.street+`</span></p>
+                <p>Number: <span id="number">`+result[i].address.number+`</span></p>
+                <p>Door: <span id="door">`+result[i].address.door+`</span></p>
+                <p>Floor: <span id="floor">`+result[i].address.floor+`</span></p>
+                <p>Postal Code: <span id="postalCode">`+result[i].address.postalCode+`</span></p>
+                <p>Town: <span id="town">`+result[i].address.town+`</span></p>
+                <hr>
+            </p>`;
+
+            $("#display").append(markup)
+
+            }
+
+
+
+
+                }})
+
+                return
+            }
+
+               
+                   $.ajax({url: selectElement.value, success: (result) => {
+                    document.getElementById('firstname').innerText = '';
+                    document.getElementById('lastname').innerText = '';
+                    document.getElementById('phone').innerText = '';
+                    document.getElementById('cpr').innerText = '';
+                    document.getElementById('birth').innerText = '';
+                    document.getElementById('gender').innerText = '';
+                    document.getElementById('street').innerText = '';
+                    document.getElementById('number').innerText = '';
+                    document.getElementById('door').innerText = '';
+                    document.getElementById('floor').innerText = '';
+                    document.getElementById('postalCode').innerText = '';
+                    document.getElementById('town').innerText = '';
+                    
+                    if(selectElement.value == '/address')
+                   {
+                    $("#street").append(result.street);
+                    $("#number").append(result.number);
+                    $("#door").append(result.door);
+                    $("#floor").append(result.floor);
+                    $("#postalCode").append(result.postalCode);
+                    $("#town").append(result.town);
+                   }
+
+
+                    $("#firstname").append(result.firstname);
+                    $("#lastname").append(result.lastname);
+                     $("#phone").append(result.phone);
+                    $("#cpr").append(result.cpr);
+                    $("#birth").append(result.birth);
+                    $("#gender").append(result.gender);
+                    $("#street").append(result.address.street);
+                    $("#number").append(result.address.number);
+                    $("#door").append(result.address.door);
+                    $("#floor").append(result.address.floor);
+                    $("#postalCode").append(result.address.postalCode);
+                    $("#town").append(result.address.town);
+                }})
+            
+
+            }
+    
+        </script>
+    </body>
+</html>
