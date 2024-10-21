@@ -1,5 +1,4 @@
-const { DataTypes } = require('sequelize');
-const db = require('./../../src/db')
+const db = require('../src/db')
 
 test ('get address obj with 6 properties', async () => {
     const result = await db.getAddress();
