@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest"
   },
-  "author": "",
+  "author": "Muhammad Ali Khan",
   "license": "ISC",
   "description": "",
   "dependencies": {
