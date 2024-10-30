@@ -17,10 +17,8 @@ const connect = async () => {
         dialect: 'mysql'
       });
         await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
         return sequelize;
       } catch (error) {
-        console.error('Unable to connect to the database:', error);
         return error;
       }
 }
@@ -28,7 +26,6 @@ const connect = async () => {
  
 const closeConnection = (connection) => {
     connection.close()
-    console.log('Connection closed')
 }
 
 
@@ -136,7 +133,7 @@ var obj = {};
     
     obj = {
       firstname: person.name,
-      surname: person.surname,
+      lastname: person.surname,
       birth: dd.toString()+mm.toString()+yy.toString()
     }
 
@@ -218,7 +215,6 @@ const getAddress = async () => {
   const doorOption1 = ['tv','mf','th']
   const doorOption2 = Math.floor(Math.random() * 50)+1;
   const doorOption3LetterChoice = Math.floor(Math.random() * characters.length);
-  console.log(characters[doorOption3LetterChoice].toString())
   const doorOption3 = characters[doorOption3LetterChoice].toString() + (Math.floor(Math.random() * 999)+1).toString();
   const randomDoorChoice = Math.floor(Math.random() * 3);
   const connection = await connect();
@@ -255,7 +251,6 @@ const getAddress = async () => {
   }
 
   // postal code and town
-  console.log(randomAddressChoice)
   postal_code = addresses[randomAddressChoice].cPostalCode;
   town = addresses[randomAddressChoice].cTownName;
 
@@ -332,13 +327,12 @@ const getPersons = async (quantity) => {
 
   for(let i = 0; i < quantity; i++)
   {
-    console.log(i)
     cprNameGenderBirth = getCPRNameGenderBirth();
     address = await getAddress();
     phone = getPhone();
     obj = {
       firstname: cprNameGenderBirth.firstname,
-      lastname: cprNameGenderBirth.surname,
+      lastname: cprNameGenderBirth.lastname,
       gender: cprNameGenderBirth.gender,
       cpr: cprNameGenderBirth.cpr,
       birth: cprNameGenderBirth.birth,

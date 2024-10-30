@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "e2e:edge": "cypress run --browser edge"
   },
   "author": "Ali",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cypress": "^13.15.1",
     "express": "^4.21.1",
     "jest": "^29.7.0",
     "mysql2": "^3.11.3",

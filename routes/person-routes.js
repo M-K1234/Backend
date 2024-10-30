@@ -6,13 +6,6 @@ router.get('/', (req, res) => {
     res.sendFile(__dirname+'./../public/index.html')
 })
 
-router.get('/cpr', async (req, res) => {
-    const connection =  await db.connect()
-    const records = await db.getAllRecords(connection)
-    db.closeConnection(connection)
-    res.json(records)
-
-})
 
 router.get('/name-gender',  (req, res) => {
     const records =  db.getNameGender()
