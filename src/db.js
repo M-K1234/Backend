@@ -1,3 +1,4 @@
+// @flow
 const { Sequelize, DataTypes } = require('sequelize')
 const persons = require('./../src/persons')
 
@@ -149,7 +150,7 @@ const getCPRNameGender = () => {
 
   while(true)
   {
-    cpr4Digits = Math.floor(Math.random() * (9999-1000))+1000;
+    cpr4Digits = Math.floor(Math.random() * (9999-1000)+1000);
 
     if(cpr4Digits % 2 == 0 && nameGender.gender == 'female')
     {
@@ -203,7 +204,7 @@ const getCPRNameGenderBirth = () => {
   return obj;
 }
 
-const getAddress = async () => {
+const getAddress =  (addresses) => {
   const characters  = ['q', 'w', 'e','r','t','y','u','i','o','p']
   var randomText = '';
   const randomLength = Math.floor(Math.random() * (20-10))+10;
@@ -217,8 +218,6 @@ const getAddress = async () => {
   const doorOption3LetterChoice = Math.floor(Math.random() * characters.length);
   const doorOption3 = characters[doorOption3LetterChoice].toString() + (Math.floor(Math.random() * 999)+1).toString();
   const randomDoorChoice = Math.floor(Math.random() * 3);
-  const connection = await connect();
-  const addresses = await getAllAddresses(connection);
   var postal_code = 0;
   var town = '';
   const randomAddressChoice = Math.floor(Math.random() * addresses.length);
@@ -263,8 +262,6 @@ const getAddress = async () => {
     town: town
   }
 
-  closeConnection(connection)
-
   return obj;
 }
 
@@ -292,11 +289,9 @@ const getPhone = () => {
   return obj;
 }
 
-const getPerson = async () => {
+const getPerson = async (address, cprNameGenderBirth, phone) => {
   var obj = {};
-  const cprNameGenderBirth = getCPRNameGenderBirth();
-  const address = await getAddress();
-  const phone = getPhone();
+
 
   obj = {
     firstname: cprNameGenderBirth.firstname,
@@ -318,18 +313,12 @@ const getPerson = async () => {
   return obj;
 }
 
-const getPersons = async (quantity) => {
+const getPersons = async (quantity, cprNameGenderBirth, address, phone) => {
   var obj = {};
-  var cprNameGenderBirth = {};
-  var address = {};
-  var phone = {};
   var persons = [];
 
   for(let i = 0; i < quantity; i++)
   {
-    cprNameGenderBirth = getCPRNameGenderBirth();
-    address = await getAddress();
-    phone = getPhone();
     obj = {
       firstname: cprNameGenderBirth.firstname,
       lastname: cprNameGenderBirth.lastname,
@@ -361,6 +350,7 @@ module.exports = {
     getCPRNameGender: getCPRNameGender,
     getCPRNameGenderBirth: getCPRNameGenderBirth,
     getAddress: getAddress,
+    getAllAddresses: getAllAddresses,
     getPhone: getPhone,
     getPerson: getPerson,
     getPersons: getPersons

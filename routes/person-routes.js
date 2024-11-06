@@ -28,9 +28,11 @@ router.get('/cpr-name-gender-birth',  (req, res) => {
 
 })
 router.get('/address', async (req, res) => {
- 
-    const records = await db.getAddress()
+    const connection = await db.connect();
+    const addresses = await db.getAllAddresses(connection);
+    const records = await db.getAddress(addresses)
     res.json(records)
+    db.closeConnection(connection)
 
 })
 router.get('/phone', (req, res) => {
@@ -44,8 +46,14 @@ router.get('/person', async (req, res) => {
 
 })
 router.get('/persons/:n', async (req, res) => {
-    const records = await db.getPersons(req.params.n)
-    console.log(req.params.n)
+    const connection = await db.connect();
+    const addresses = await db.getAllAddresses(connection);
+    const address = db.getAddress(addresses)
+    const cprNameGenderBirth = db.getCPRNameGenderBirth();
+    const phone = db.getPhone();
+    const records = await db.getPersons(req.params.n, cprNameGenderBirth, address, phone)
+    
+    
     res.json(records)
 
 })
