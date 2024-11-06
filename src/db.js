@@ -11,7 +11,7 @@ const phoneDigits = [
   '667', '692', '693', '694', '697', '771', '772', '782', '783', '785', '786', '788', '789', '826', '827', '829'
 ];
 
-const connect = async () => {
+const connect = async ( ) => {
     try {
       const sequelize = new Sequelize('addresses', 'root', 'ali1234', {
         host: 'localhost',
