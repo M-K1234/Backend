@@ -47,7 +47,7 @@ router.get('/person', async (req, res) => {
 })
 router.get('/persons/:n', async (req, res) => {
     const connection = await db.connect();
-    const addresses = await db.getAllAddresses(connection);
+    const addresses = await db.getAllAddresses(connection );
     const address = db.getAddress(addresses)
     const cprNameGenderBirth = db.getCPRNameGenderBirth();
     const phone = db.getPhone();
