@@ -1,7 +1,7 @@
 // @flow
 const { Sequelize, DataTypes } = require('sequelize')
-const persons = require('./../src/persons'  )
-
+const persons = require('./../src/persons')
+//sss
 const phoneDigits = [
   '2', '30', '31', '40', '41', '42', '50', '51', '52', '53', '60', '61', '71', '81', '91', '92', '93', '342', 
   '344', '345', '346', '347', '348', '349', '356', '357', '359', '362', '365', '366', '389', '398', '431', 
