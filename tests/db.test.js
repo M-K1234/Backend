@@ -1,7 +1,7 @@
 
 const db = require('../src/db')
 
-test('check if phone method return 8 digits',  () => {
+test('check if phone method return 8 digits',   () => {
     expect(db.getPhone().phone.length).toBe(8)
 })
 
