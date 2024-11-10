@@ -1,23 +1,21 @@
-const { Sequelize, DataTypes } = require("sequelize")
-const { connect, getAddress, getAllAddresses } = require("../../src/db")
+const { Sequelize } = require("sequelize")
+const db = require("../../src/db")
 
     
 describe('Get address',  () => {
   
 
     test('create connection',async () => {
-      const connection = await connect();
-      const  addresses =  await getAllAddresses(connection)
-      const address = getAddress(addresses);
-            expect(connection instanceof Sequelize).toBe(true)
-
-             
+      const connection = await db.connect();
+      expect(connection instanceof Sequelize).toBe(true)
+      db.closeConnection(connection)
     })
     test('get addresses', async () => { 
-      const connection = await connect();
-const  addresses =  await getAllAddresses(connection)
-const address = getAddress(addresses);
+      const connection = await db.connect();
+      const  addresses =  await db.getAllAddresses(connection)
+      const address = db.getAddress(addresses);
       expect(typeof address.street).toBe("string")
+      db.closeConnection(connection)
   })
 
    

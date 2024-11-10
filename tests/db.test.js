@@ -1,4 +1,4 @@
-const { describe } = require('mocha')
+
 const db = require('../src/db')
 
 test('check if phone method return 8 digits',  () => {
