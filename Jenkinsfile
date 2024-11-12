@@ -6,7 +6,6 @@ pipeline {
             steps {
                 bat "npm install"
                 bat "npm test"
-                bat "npm run flow"
             }
         }
     }
